@@ -1,0 +1,8 @@
+COMMANDS
+--------
+[Play] - Say 'Play' to play.
+[Quit] - Say 'Quit' to leave the game.
+[Up] - Say 'Up' to scroll up.
+[Down] - Say 'Down' to scroll down.
+
+X:\<Game file location on the computer>
