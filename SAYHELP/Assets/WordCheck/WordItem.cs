@@ -17,6 +17,8 @@ namespace InfoSystem
         private bool isCheck = false; //have been seened or not
         public int index; // place of the letter or space in this line
 
+        public ShowInfoType lineIndex;
+
         void Start()
         {
             txt = GetComponent<Text>(); // get the TMP component
@@ -31,6 +33,9 @@ namespace InfoSystem
         //When the mouse enters the text mesh
         private void EnterCheck()
         {
+            if(!WordInfoSystem.Single.canScan){
+                return;
+            }
             if (isCheck)
             {
                 WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this leter detected";
@@ -55,9 +60,8 @@ namespace InfoSystem
 
         private void ExitCheck()
         {
-            if (isCheck)
+            if (isCheck||!WordInfoSystem.Single.canScan)
             {
-
                 return;
             }
             ChageColor(Color.white);

@@ -89,25 +89,62 @@ namespace InfoSystem
         {
             InitData();
         }
+        IEnumerator starC;
         private void Start()
         {
             wait = new WaitForSeconds(0.1f);
-            StartCoroutine(PlayAllWardAni());
+            starC =  PlayAllWardAni(ShowInfoType.Six);
+            StartCoroutine(starC);
+        }
+
+        void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.H))
+            {
+                Debug.Log("HELP");
+                StopCoroutine(starC);
+                StartCoroutine(PlayAllWardAni(ShowInfoType.Seven, ShowInfoType.Fifteen));
+            }
         }
 
 
-
-        
         private WaitForSeconds wait;
 
-        IEnumerator PlayAllWardAni()
+        private int endIndex;
+
+        public bool canScan=false;
+
+        IEnumerator PlayAllWardAni( ShowInfoType lineType)
         {
             foreach (var item in wordItemList)
             {
+                if(item.lineIndex>lineType)
+                {
+                    continue;
+                }
+             
                 yield return wait;
                 item.PlayAni();
-            }    
+                endIndex++;
+            } 
+            canScan=true;
         }
+
+        IEnumerator PlayAllWardAni( ShowInfoType first, ShowInfoType end)
+        {
+
+            foreach (var item in wordItemList)
+            {
+                canScan=false;
+               if(first<=item.lineIndex&&item.lineIndex<=end)
+               {
+                     yield return wait;
+                     item.PlayAni();
+               }              
+            }    
+            canScan=true;
+        }
+
 
         void InitData()
         {
@@ -146,7 +183,7 @@ namespace InfoSystem
                         //2D
                        // CreateTxtObj(strs[i], i * offsetX,(int)type*offsetY);
                        //3D
-                       CreateTxt3DObj(strs[i], i * offsetX, (int)type * offsetY);
+                       CreateTxt3DObj(strs[i], i * offsetX, (int)type * offsetY,type);
                     }
                 }
             }  
@@ -164,7 +201,7 @@ namespace InfoSystem
             }
         }
 
-         private void CreateTxt3DObj(char name, float offsetX,float offsetY)
+         private void CreateTxt3DObj(char name, float offsetX,float offsetY,ShowInfoType line)
         {
             var wordGO = Instantiate(TextPrefab);
             var wt = wordGO.AddComponent<WordItem>();
@@ -174,6 +211,7 @@ namespace InfoSystem
             wordItemList.Add(wt);
             wt.info = name.ToString();
             wt.index = wordItemIndex;
+            wt.lineIndex = line;
             wordItemIndex++;
             wordGO.name = name.ToString();
             var rect = wordGO.GetComponent<RectTransform>();
