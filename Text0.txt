@@ -1,8 +1,0 @@
-Unity OS [Version 0.0.1]
-(c)1982 Xiao Studio Inc. All rights reserved.
-
-Say Help for more assistance.
-
-X:\<Game file location on the computer>
-
-
