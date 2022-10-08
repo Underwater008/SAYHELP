@@ -1,0 +1,9 @@
+COMMANDS
+--------
+[Play] - Say 'Play' to play
+[Quit] - Say 'Quit' to leave the game
+[Delete] - Say 'Delete' to delete
+[Help] - Say 'Help' for available commands
+[FreeMemory] - Say 'Free + Memory' to forget saved story
+
+X:\<Game file location on the computer>

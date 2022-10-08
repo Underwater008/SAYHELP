@@ -148,7 +148,7 @@ namespace InfoSystem
             }    
             canScan=true;
         }
-
+        private int compareValueUnit;
 
         void InitData()
         {

@@ -30,8 +30,10 @@ namespace InfoSystem
           //  txt.rectTransform.localScale = Vector2.zero;
 
         }
+
+        public int compareValue=6;
         //When the mouse enters the text mesh
-        private void EnterCheck()
+        public void EnterCheck()
         {
             if(!WordInfoSystem.Single.canScan){
                 return;
@@ -41,10 +43,11 @@ namespace InfoSystem
                 WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this letter detected";
                 return;
             }
-            if (WordInfoSystem.Single.Count == index && !isCheck)
+            if ((index-WordInfoSystem.Single.Count)<compareValue && !isCheck)
             {
                 isCheck = true;
                 ChageColor(Color.green);
+
                 WordInfoSystem.Single.RecordAddWord(this);
                 WordInfoSystem.Single.debugtXT.color = Color.yellow;
                 WordInfoSystem.Single.debugtXT.text = "read, index" + WordInfoSystem.Single.Count;
@@ -58,7 +61,7 @@ namespace InfoSystem
             }
         }
 
-        private void ExitCheck()
+        public void ExitCheck()
         {
             if (isCheck||!WordInfoSystem.Single.canScan)
             {
@@ -69,12 +72,12 @@ namespace InfoSystem
 
         private void OnMouseEnter()
         {
-            EnterCheck();
+           // EnterCheck();
         }
 
         private void OnMouseExit()
         {
-            EnterCheck();
+           // EnterCheck();
         }
 
         public void PlayAni()
