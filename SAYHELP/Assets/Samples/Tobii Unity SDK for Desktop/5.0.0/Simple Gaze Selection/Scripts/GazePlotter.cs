@@ -42,6 +42,7 @@ namespace Tobii.Gaming.Examples.SimpleGazeSelection
 		private SpriteRenderer
 			_gazeBubbleRenderer; // the gaze bubble sprite is attached to the GazePlotter game object itself
 
+		[SerializeField]
 		private bool _useFilter = false;
 		private bool _hasHistoricPoint;
 		private Vector3 _historicPoint;

@@ -8,6 +8,7 @@ namespace InfoSystem
     using TMPro;
     using UnityEngine.UI;
     using DG.Tweening;
+    using System;
     public class WordItem : MonoBehaviour,IWord
     {
         //private Text txt; //individrual letter
@@ -18,6 +19,20 @@ namespace InfoSystem
         public int index; // place of the letter or space in this line
 
         public ShowInfoType lineIndex;
+        private WordGroup wg;
+
+        public WordGroup WG
+        {
+            get
+            {
+                if (wg==null)
+                {
+                    wg=transform.parent.GetComponent<WordGroup>();
+                }
+                return  wg;
+            }
+        }
+      
 
         void Start()
         {
@@ -31,27 +46,34 @@ namespace InfoSystem
 
         }
 
-        public int compareValue=6;
+        public int compareValue;
         //When the mouse enters the text mesh
         public void EnterCheck()
         {
             if(!WordInfoSystem.Single.canScan){
                 return;
             }
+
             if (isCheck)
             {
                 WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this letter detected";
                 return;
             }
-            if ((index-WordInfoSystem.Single.Count)<compareValue && !isCheck)
+            Debug.LogWarning("0111111111111111111111111");
+            if (compareValue==WordInfoSystem.Single.resultCompareValue&& !isCheck)
             {
-                isCheck = true;
+                isCheck = true;   
                 ChageColor(Color.green);
-
                 WordInfoSystem.Single.RecordAddWord(this);
                 WordInfoSystem.Single.debugtXT.color = Color.yellow;
                 WordInfoSystem.Single.debugtXT.text = "read, index" + WordInfoSystem.Single.Count;
                 WordInfoSystem.Single.Count++;
+                WordInfoSystem.Single.CmpTemp++;
+                if(WG.allWordItemList.Count==WordInfoSystem.Single.CmpTemp)
+                {
+                    WordInfoSystem.Single.resultCompareValue++;
+                    WordInfoSystem.Single.CmpTemp=0;
+                }
             }
             else
             {
@@ -72,12 +94,16 @@ namespace InfoSystem
 
         private void OnMouseEnter()
         {
-           // EnterCheck();
+          //  EnterCheck();
+          //print(111);
+         // WG.SetAllSoonEnterState();
         }
 
         private void OnMouseExit()
         {
-           // EnterCheck();
+           // ExitCheck();
+          // print(222)
+;          // WG.SetAllSoonExitState();
         }
 
         public void PlayAni()
@@ -88,12 +114,16 @@ namespace InfoSystem
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            EnterCheck();
+            //EnterCheck();
+            // print(333);
+             WG.SetAllSoonEnterState();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            ExitCheck();
+           // ExitCheck();
+          // print(444);
+           WG.SetAllSoonExitState();
         }
         public void ChageColor(Color enterColor)
         {

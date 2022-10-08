@@ -18,9 +18,9 @@ public class WordGazeAware : MonoBehaviour
     {
         if (_gazeAware.HasGazeFocus)
         {
-            wordIten.EnterCheck();
+            wordIten.WG.SetAllSoonEnterState();
         }
         else
-        wordIten.ExitCheck();
+        wordIten.WG.SetAllSoonExitState();
     }
 }

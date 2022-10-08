@@ -43,6 +43,7 @@ namespace Tobii.Gaming.Examples.GazePointData
 			_gazeBubbleRenderer; // the gaze bubble sprite is attached to the GazePlotter game object itself
 
 		private bool _useFilter = false;
+
 		private bool _hasHistoricPoint;
 		private Vector3 _historicPoint;
 
