@@ -1,10 +1,9 @@
-﻿namespace InfoSystem
-{
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+
 
 /// <summary>
 /// see here https://lightbuzz.com/speech-recognition-unity/
@@ -38,7 +37,7 @@ public class TextSpeechRecognitionEngine : MonoBehaviour
             recognizer.Start();
             Debug.Log( recognizer.IsRunning );
         }
-
+     //   InfoSystem.WordInfoSystem.Single.AddRecordSuccessListener(()=>{StartRecongnizer()};);
         foreach (var device in Microphone.devices)
         {
             Debug.Log("Name: " + device);
@@ -70,4 +69,4 @@ public class TextSpeechRecognitionEngine : MonoBehaviour
             recognizer.Stop();
         }
     }
-}}
+}

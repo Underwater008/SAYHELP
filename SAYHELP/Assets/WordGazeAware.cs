@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tobii.Gaming;
 using UnityEngine;
- 
+ using InfoSystem;
 public class WordGazeAware : MonoBehaviour
 {
     private GazeAware _gazeAware;

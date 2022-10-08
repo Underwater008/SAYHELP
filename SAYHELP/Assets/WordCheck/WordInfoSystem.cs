@@ -28,14 +28,14 @@ namespace InfoSystem
         [SerializeField]
         private HashSet<WordItem> reCordList; // scaned word // Hashset stores the absolut data
         private Dictionary<ShowInfoType, StringBuilder> allInfoDic = new Dictionary<ShowInfoType, StringBuilder>(); // Stringbuilder for better performence
-        private Vector2 oldVec; 
+        private Vector2 oldVec;
         private float offsetX; // distence between words
         private float offsetY; // distence between lines
-        
-         [SerializeField]
-         private float offset3DX; // distence between words
-         [SerializeField]
-         private float offset3DY; // distence between lines
+
+        [SerializeField]
+        private float offset3DX; // distence between words
+        [SerializeField]
+        private float offset3DY; // distence between lines
 
 
         /// <summary>
@@ -47,18 +47,19 @@ namespace InfoSystem
         /// Open Interface
         /// </summary>
         private Action recordEndAct;
+
         /// <summary>
         /// Add RecordSucee Listener
         /// </summary>
         /// <param name="act"></param>
         public void AddRecordSuccessListener(Action act)
         {
-            if (act!=null)
+            if (act != null)
             {
                 recordEndAct = act;
             }
         }
-        
+
         private int recordCount; // total words read
 
         public int wordItemIndex = 0; // word index
@@ -73,17 +74,37 @@ namespace InfoSystem
             set
             {
                 recordCount = value; // get total read words
-                if (recordCount== wordItemList.Count) // see if finished reading
+                if (recordCount == wordItemList.Count) // see if finished reading
                 {
                     recordEndSuccess = true;
+
                     debugtXT.text = "Finished reading everything";
-                    if (recordEndAct!=null)
+                    if (recordEndAct != null)
                     {
                         recordEndAct(); // finished reading
                     }
                 }
             }
         }
+
+        private Dictionary<int, List<WordItem>> allWordsDic = new Dictionary<int, List<WordItem>>();
+
+        private void InitWordsData()
+        {
+           foreach (var item in allWordsDic.Keys)
+           {
+                foreach (var word in allWordsDic[item])
+                {
+                    //word.act=RegisterAct
+                }
+           }
+        }
+
+        private void RegisterAct(){
+
+
+        }
+
 
         private void Awake()
         {
@@ -93,13 +114,13 @@ namespace InfoSystem
         private void Start()
         {
             wait = new WaitForSeconds(0.1f);
-            starC =  PlayAllWardAni(ShowInfoType.Six);
+            starC = PlayAllWardAni(ShowInfoType.Six);
             StartCoroutine(starC);
         }
 
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 Debug.Log("HELP");
                 StopCoroutine(starC);
@@ -112,41 +133,40 @@ namespace InfoSystem
 
         private int endIndex;
 
-        public bool canScan=false;
+        public bool canScan = false;
 
         //打印到第六行
-        IEnumerator PlayAllWardAni( ShowInfoType lineType)
+        IEnumerator PlayAllWardAni(ShowInfoType lineType)
         {
             foreach (var item in wordItemList)
             {
-                if(item.lineIndex>lineType)
+                if (item.lineIndex > lineType)
                 {
                     continue;
                 }
-             
+
                 yield return wait;
                 item.PlayAni();
                 endIndex++;
-            } 
-            canScan=true;
+            }
+            canScan = true;
             Debug.Log("canScan = " + canScan);
-            //TextSpeechRecognitionEngine.Single.StartRecongnizer();
         }
 
         //从第七行打印到第十五行
-        IEnumerator PlayAllWardAni( ShowInfoType first, ShowInfoType end)
+        IEnumerator PlayAllWardAni(ShowInfoType first, ShowInfoType end)
         {
 
             foreach (var item in wordItemList)
             {
-                canScan=false;
-               if(first<=item.lineIndex&&item.lineIndex<=end)
-               {
-                     yield return wait;
-                     item.PlayAni();
-               }              
-            }    
-            canScan=true;
+                canScan = false;
+                if (first <= item.lineIndex && item.lineIndex <= end)
+                {
+                    yield return wait;
+                    item.PlayAni();
+                }
+            }
+            canScan = true;
         }
 
 
@@ -161,7 +181,7 @@ namespace InfoSystem
             Single = this;
             wordItemList = new List<WordItem>();
             reCordList = new HashSet<WordItem>();
-            
+
             // add all words into dictinory for better performance
             for (var i = ShowInfoType.One; i < (ShowInfoType)wordInfo.Count; i++)
             {
@@ -172,28 +192,43 @@ namespace InfoSystem
             }
 
             // genarate each word with space between them
-            offsetX = TextPrefab.GetComponent<RectTransform>().rect.width*0.5f;
-            offsetY = TextPrefab.GetComponent<RectTransform>().rect.height*1;
-
+            offsetX = TextPrefab.GetComponent<RectTransform>().rect.width * 0.5f;
+            offsetY = TextPrefab.GetComponent<RectTransform>().rect.height * 1;
+       
+            int tempIndex=0;
+            Transform parent=new GameObject(tempIndex.ToString()).transform;
+            parent.SetParent(transform.GetChild(0));
+             parent.localPosition=Vector3.zero;
+              parent.gameObject.AddComponent<WordGroup>();    
             // genarate each word
-            for (var type = ShowInfoType.One; type <(ShowInfoType)wordInfo.Count; type++)
+            for (var type = ShowInfoType.One; type < (ShowInfoType)wordInfo.Count; type++)
             {
                 if (!string.IsNullOrEmpty(wordInfo[(int)type]))
                 {
                     var strs = allInfoDic[type].ToString().ToList();
-                   
+
                     for (int i = 0; i < strs.Count; i++)
                     {
                         //2D
-                       // CreateTxtObj(strs[i], i * offsetX,(int)type*offsetY);
-                       //3D
-                       CreateTxt3DObj(strs[i], i * offsetX, (int)type * offsetY,type);
+                        // CreateTxtObj(strs[i], i * offsetX,(int)type*offsetY);
+                        //3D
+                        if (strs[i] == ' ')
+                        { 
+                             tempIndex++;
+                             
+                             parent=new GameObject(tempIndex.ToString()).transform;
+                             parent.gameObject.AddComponent<WordGroup>();
+                             parent.SetParent(transform.GetChild(0));
+                             parent.localPosition=Vector3.zero;                                                        
+                            continue;
+                        }
+                        CreateTxt3DObj(strs[i], i * offsetX, (int)type * offsetY, type,parent);
                     }
                 }
-            }  
+            }
         }
 
-        
+
         //get word info and store to dictionry
         public void AppendInfo(ShowInfoType infoType, string info)
         {
@@ -205,41 +240,50 @@ namespace InfoSystem
             }
         }
 
-         private void CreateTxt3DObj(char name, float offsetX,float offsetY,ShowInfoType line)
+        private WordItem CreateTxt3DObj(char name, float offsetX, float offsetY, ShowInfoType line,Transform parent)
         {
             var wordGO = Instantiate(TextPrefab);
             var wt = wordGO.AddComponent<WordItem>();
-          
-            wordGO.transform.SetParent(transform.GetChild(0));
-            wordGO.transform.localPosition = Vector3.zero;
+
+
             wordItemList.Add(wt);
             wt.info = name.ToString();
             wt.index = wordItemIndex;
             wt.lineIndex = line;
+            wordGO.transform.SetParent(parent);
+            wordGO.transform.localPosition = Vector3.zero;
+
             wordItemIndex++;
             wordGO.name = name.ToString();
             var rect = wordGO.GetComponent<RectTransform>();
             rect.anchoredPosition = Vector3.zero;
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + offsetX, rect.anchoredPosition.y-offsetY);           
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + offsetX, rect.anchoredPosition.y - offsetY);
+
+            return wt;
         }
 
 
         // 
-        private void CreateTxtObj(char name, float offsetX,float offsetY)
+        private void CreateTxtObj(char name, float offsetX, float offsetY)
         {
             var wordGO = Instantiate(TextPrefab, TextPrefab.transform.position, Quaternion.identity, transform.GetChild(0));
-            var wt = wordGO.AddComponent<WordItem>();
-            wordItemList.Add(wt);
-            wt.info = name.ToString();
-            wt.index = wordItemIndex;
+
+            if (name != ' ')
+            {
+                var wt = wordGO.AddComponent<WordItem>();
+                wordItemList.Add(wt);
+                wt.info = name.ToString();
+                wt.index = wordItemIndex;
+            }
+
             wordItemIndex++;
             wordGO.name = name.ToString();
             var rect = wordGO.GetComponent<RectTransform>();
             rect.anchoredPosition = Vector2.zero;
-            rect.anchorMax = new Vector2(0,1);
-            rect.anchorMin = new Vector2(0,1);
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + offsetX, rect.anchoredPosition.y-offsetY);
-            
+            rect.anchorMax = new Vector2(0, 1);
+            rect.anchorMin = new Vector2(0, 1);
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + offsetX, rect.anchoredPosition.y - offsetY);
+
         }
 
         public void RecordAddWord(WordItem wordItem)

@@ -6,6 +6,7 @@ namespace InfoSystem
     using UnityEngine.EventSystems;
     using UnityEngine.Events;
     using TMPro;
+    using System;
     using UnityEngine.UI;
     using DG.Tweening;
     public class WordItem : MonoBehaviour,IWord
@@ -19,6 +20,10 @@ namespace InfoSystem
 
         public ShowInfoType lineIndex;
 
+        public Action  enterAct;
+        public Action exitAct;
+
+
         void Start()
         {
             txt = GetComponent<Text>(); // get the TMP component
@@ -31,8 +36,9 @@ namespace InfoSystem
 
         }
         //When the mouse enters the text mesh
-        private void EnterCheck()
+        public void EnterCheck()
         {
+            //
             if(!WordInfoSystem.Single.canScan){
                 return;
             }
@@ -41,24 +47,25 @@ namespace InfoSystem
                 WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this letter detected";
                 return;
             }
-            if (WordInfoSystem.Single.Count == index && !isCheck)
-            {
-                isCheck = true;
-                ChageColor(Color.green);
-                WordInfoSystem.Single.RecordAddWord(this);
-                WordInfoSystem.Single.debugtXT.color = Color.yellow;
-                WordInfoSystem.Single.debugtXT.text = "read, index" + WordInfoSystem.Single.Count;
-                WordInfoSystem.Single.Count++;
-            }
-            else
-            {
-                ChageColor(Color.red);
-                WordInfoSystem.Single.debugtXT.color = Color.red;
-                WordInfoSystem.Single.debugtXT.text = "Please read everything carefully";
-            }
+            ChageColor(Color.green);
+            // if (WordInfoSystem.Single.Count == index && !isCheck)
+            // {
+            //     isCheck = true;
+            //     ChageColor(Color.green);
+            //     WordInfoSystem.Single.RecordAddWord(this);
+            //     WordInfoSystem.Single.debugtXT.color = Color.yellow;
+            //     WordInfoSystem.Single.debugtXT.text = "read, index" + WordInfoSystem.Single.Count;
+            //     WordInfoSystem.Single.Count++;
+            // }
+            // else
+            // {
+            //     ChageColor(Color.red);
+            //     WordInfoSystem.Single.debugtXT.color = Color.red;
+            //     WordInfoSystem.Single.debugtXT.text = "Please read everything carefully";
+            // }
         }
 
-        private void ExitCheck()
+        public void ExitCheck()
         {
             if (isCheck||!WordInfoSystem.Single.canScan)
             {
@@ -69,12 +76,21 @@ namespace InfoSystem
 
         private void OnMouseEnter()
         {
-            EnterCheck();
+            if(enterAct!=null)
+            {
+                print("Enter!!!!");
+                enterAct();
+            }
+           // EnterCheck();
         }
 
         private void OnMouseExit()
         {
-            EnterCheck();
+           // EnterCheck();
+           if (exitAct!=null)
+           {
+                exitAct();
+           }
         }
 
         public void PlayAni()
@@ -85,12 +101,12 @@ namespace InfoSystem
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            EnterCheck();
+          //  EnterCheck();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            ExitCheck();
+           // ExitCheck();
         }
         public void ChageColor(Color enterColor)
         {
