@@ -114,6 +114,7 @@ namespace InfoSystem
 
         public bool canScan=false;
 
+        //打印到第六行
         IEnumerator PlayAllWardAni( ShowInfoType lineType)
         {
             foreach (var item in wordItemList)
@@ -128,8 +129,11 @@ namespace InfoSystem
                 endIndex++;
             } 
             canScan=true;
+            Debug.Log("canScan = " + canScan);
+            //TextSpeechRecognitionEngine.Single.StartRecongnizer();
         }
 
+        //从第七行打印到第十五行
         IEnumerator PlayAllWardAni( ShowInfoType first, ShowInfoType end)
         {
 

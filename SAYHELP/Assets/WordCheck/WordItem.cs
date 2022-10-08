@@ -38,7 +38,7 @@ namespace InfoSystem
             }
             if (isCheck)
             {
-                WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this leter detected";
+                WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this letter detected";
                 return;
             }
             if (WordInfoSystem.Single.Count == index && !isCheck)
