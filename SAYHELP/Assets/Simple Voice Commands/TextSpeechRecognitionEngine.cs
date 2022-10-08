@@ -11,7 +11,7 @@ using UnityEngine.Events;
 /// </summary>
 public class TextSpeechRecognitionEngine : MonoBehaviour
 {
-    public string[] keywords = new string[] { "help" };
+    public string[] keywords = new string[] { "help", "play", "delete", "I", "am", "Bella", "Max", "get", "closer", "What", "a", "jackass","nice", "God", "be", "with", "you", "All", "going", "to", "visit", "Lucy", "because", "mister", "Honey" };
     public ConfidenceLevel confidence = ConfidenceLevel.Medium;
 
     public Text results;

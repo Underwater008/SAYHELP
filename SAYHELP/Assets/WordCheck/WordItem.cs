@@ -106,6 +106,7 @@ namespace InfoSystem
 ;          // WG.SetAllSoonExitState();
         }
 
+        //show the letter
         public void PlayAni()
         {
             txt.DOColor(Color.white, 0.01f);

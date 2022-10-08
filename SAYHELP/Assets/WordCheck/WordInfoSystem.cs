@@ -106,7 +106,7 @@ namespace InfoSystem
             {
                 Debug.Log("HELP");
                 StopCoroutine(starC);
-                StartCoroutine(PlayAllWardAni(ShowInfoType.Seven, ShowInfoType.Fifteen));
+                //StartCoroutine(PlayAllWardAni(ShowInfoType.Seven, ShowInfoType.Fifteen));
             }
         }
 
@@ -125,7 +125,7 @@ namespace InfoSystem
             {
                 if (item.lineIndex > lineType)
                 {
-                    continue;
+                    StopCoroutine(starC);
                 }
 
                 yield return wait;
@@ -138,20 +138,20 @@ namespace InfoSystem
         }
 
         //从第七行打印到第十五行
-        IEnumerator PlayAllWardAni(ShowInfoType first, ShowInfoType end)
-        {
+        // IEnumerator PlayAllWardAni(ShowInfoType first, ShowInfoType end)
+        // {
 
-            foreach (var item in wordItemList)
-            {
-                canScan = false;
-                if (first <= item.lineIndex && item.lineIndex <= end)
-                {
-                    yield return wait;
-                    item.PlayAni();
-                }
-            }
-            canScan = true;
-        }
+        //     foreach (var item in wordItemList)
+        //     {
+        //         canScan = false;
+        //         if (first <= item.lineIndex && item.lineIndex <= end)
+        //         {
+        //             yield return wait;
+        //             item.PlayAni();
+        //         }
+        //     }
+        //     canScan = true;
+        // }
         private int compareValueUnit;
 
 
@@ -232,6 +232,7 @@ namespace InfoSystem
             }
         }
 
+        //Create the single letter
         private WordItem CreateTxt3DObj(char name, float offsetX, float offsetY, ShowInfoType line, Transform parent)
         {
             var wordGO = Instantiate(TextPrefab);
