@@ -1007,18 +1007,18 @@ MonoBehaviour:
   wordInfo:
   - 'Unity os [Version 0.0.1] '
   - '(c)1982 Oaix Studio Inc. All rights reserved '
-  - ' '
+  - 
   - 'Say Help for more assistance '
-  - ' '
+  - 
   - 'X:\ <Game file location on the computer> | '
-  - ' '
+  - 
   - 'COMMANDS '
   - '-------- '
   - '[Play] - Say ''Play'' to play '
   - '[Quit] - Say ''Quit'' to leave the game '
   - '[delete] - Say ''Delete'' to delete '
   - '[Down] - Say ''Down'' to scroll down '
-  - ' '
+  - 
   - 'X:\<Game file location on the computer> | '
   offset3DX: 0
   offset3DY: 0
