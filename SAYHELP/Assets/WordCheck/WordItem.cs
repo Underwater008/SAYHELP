@@ -21,6 +21,20 @@ namespace InfoSystem
         public ShowInfoType lineIndex;
         private WordGroup wg;
 
+        private WordInfoSystem wordInfoMgr;
+
+        public WordInfoSystem WordInfoSystemMgr
+        {
+            get
+            {
+                if (wordInfoMgr==null)
+                {
+                    wordInfoMgr = WordInfoSystem.Single;
+                }
+                return wordInfoMgr;
+            }
+        }
+
         public WordGroup WG
         {
             get
@@ -50,42 +64,47 @@ namespace InfoSystem
         //When the mouse enters the text mesh
         public void EnterCheck()
         {
-            if(!WordInfoSystem.Single.canScan){
+            if(!WordInfoSystemMgr.canScan){
+                return;
+            }
+
+            if(this.lineIndex > WordInfoSystemMgr.firstStopLine && !WordInfoSystemMgr.canScanSecond)
+            {
                 return;
             }
 
             if (isCheck)
             {
-                WordInfoSystem.Single.debugtXT.text = WordInfoSystem.Single.recordEndSuccess ? "finished reading this line" : "this letter detected";
+                WordInfoSystemMgr.debugtXT.text = WordInfoSystemMgr.recordEndSuccess ? "finished reading this line" : "this letter detected";
                 return;
             }
-            Debug.LogWarning("0111111111111111111111111");
-            if (compareValue==WordInfoSystem.Single.resultCompareValue&& !isCheck)
+            if (compareValue==WordInfoSystemMgr.resultCompareValue&& !isCheck)
             {
+
                 isCheck = true;   
                 ChageColor(Color.green);
-                WordInfoSystem.Single.RecordAddWord(this);
-                WordInfoSystem.Single.debugtXT.color = Color.yellow;
-                WordInfoSystem.Single.debugtXT.text = "read, index" + WordInfoSystem.Single.Count;
-                WordInfoSystem.Single.Count++;
-                WordInfoSystem.Single.CmpTemp++;
-                if(WG.allWordItemList.Count==WordInfoSystem.Single.CmpTemp)
+                WordInfoSystemMgr.RecordAddWord(this);
+                WordInfoSystemMgr.debugtXT.color = Color.yellow;
+                WordInfoSystemMgr.debugtXT.text = "read, index" + WordInfoSystemMgr.Count;
+                WordInfoSystemMgr.Count++;
+                WordInfoSystemMgr.CmpTemp++;
+                if(WG.allWordItemList.Count==WordInfoSystemMgr.CmpTemp)
                 {
-                    WordInfoSystem.Single.resultCompareValue++;
-                    WordInfoSystem.Single.CmpTemp=0;
+                    WordInfoSystemMgr.resultCompareValue++;
+                    WordInfoSystemMgr.CmpTemp=0;
                 }
             }
             else
             {
                 //ChageColor(Color.red);
-                WordInfoSystem.Single.debugtXT.color = Color.red;
-                WordInfoSystem.Single.debugtXT.text = "Please read everything carefully";
+                WordInfoSystemMgr.debugtXT.color = Color.red;
+                WordInfoSystemMgr.debugtXT.text = "Please read everything carefully";
             }
         }
 
         public void ExitCheck()
         {
-            if (isCheck||!WordInfoSystem.Single.canScan)
+            if (isCheck||!WordInfoSystemMgr.canScan)
             {
                 return;
             }
@@ -117,7 +136,7 @@ namespace InfoSystem
         {
             //EnterCheck();
             // print(333);
-             WG.SetAllSoonEnterState();
+            WG.SetAllSoonEnterState();
         }
 
         public void OnPointerExit(PointerEventData eventData)

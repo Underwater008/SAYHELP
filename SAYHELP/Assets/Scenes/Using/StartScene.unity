@@ -201,34 +201,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GazePlot
       objectReference: {fileID: 0}
-    - target: {fileID: 650903558177907489, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: m_Size.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 650903558177907489, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: m_Size.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 650903558177907489, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 14d2ac3cc94486b4aba57de0c9cb7d53, type: 3}
-    - target: {fileID: 650903558177907489, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 650903558177907489, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 85c3fc0733d63614db90785f77f08dca, type: 2}
-    - target: {fileID: 650903558177907490, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: _useFilter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 650903558177907490, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
-      propertyPath: PointSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4981fbdc9bf80e0449db5521c89f2211, type: 3}
     - target: {fileID: 650903558177907491, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -243,7 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650903558177907491, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 433
       objectReference: {fileID: 0}
     - target: {fileID: 650903558177907491, guid: cd680d5350a06634d83fbc90acee0279, type: 3}
       propertyPath: m_LocalRotation.w
@@ -463,7 +435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 375, y: 219}
+  m_AnchoredPosition: {x: 361.39, y: -256.19}
   m_SizeDelta: {x: 303.6219, y: 64.9688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1636827773
@@ -977,26 +949,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugtXT: {fileID: 887617314698608247}
-  TextPrefab: {fileID: 1880656810726700501, guid: 15638a54fe676ea4abffaebcee0127e0, type: 3}
+  TextPrefab: {fileID: 1880656810726700501, guid: 4fdb4120bc0365346af5f27312c33fd9, type: 3}
   wordInfo:
   - 'Unity OS [Version 0.0.1] '
   - '(c)1982 Oaix Studio Inc. All rights reserved '
   - 
   - 'Say Help for more assistance '
   - 
-  - 'X:\ <Game file location on the computer> | '
+  - 'X:\ <Game file location on the computer> '
   - 
-  - 'COMMANDS '
-  - '-------- '
-  - '[Play] - Say ''Play'' to play '
-  - '[Quit] - Say ''Quit'' to leave the game '
-  - '[delete] - Say ''Delete'' to delete '
-  - '[Down] - Say ''Down'' to scroll down '
+  - commands
   - 
-  - 'X:\<Game file location on the computer> | '
-  firstStop: 5
-  secondStart: 6
-  secondEnd: 14
+  - '[Play] Say ''Play'' to play '
+  - '[Quit] Say ''Quit'' to leave the game '
+  - '[delete] Say ''Delete'' to delete '
+  - '[Down] Say ''Down'' to scroll down '
+  - 
+  - 'X:\<Game file location on the computer> '
+  firstStopLine: 5
+  secondStartLine: 6
+  secondEndLine: 14
   wordItemIndex: 0
   recordEndSuccess: 0
   resultCompareValue: 0

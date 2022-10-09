@@ -12,6 +12,7 @@ Material:
   m_ValidKeywords:
   - CRT_WARP_ON
   - DISTORT_ON
+  - SCROLL_STATIC_ON
   - STATIC_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -44,7 +45,7 @@ Material:
     - CRT_WARP: 1
     - DISTORT: 1
     - RGB_STRIPES: 0
-    - SCROLL_STATIC: 0
+    - SCROLL_STATIC: 1
     - STATIC: 1
     - Vector1_1BFF6B46: 256
     - Vector1_5660967D: 1.8
@@ -52,7 +53,7 @@ Material:
     - Vector1_96113905: 100
     - Vector1_DF019693: 0.5
     - WOBBLE: 0
-    - _DistortionStrength: 0.006
+    - _DistortionStrength: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScanlineHeight: 10

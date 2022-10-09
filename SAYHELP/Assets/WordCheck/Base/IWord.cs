@@ -27,6 +27,10 @@ namespace InfoSystem
         Fourteen, //line 14
         Fifteen, //line 15
         Sixteen, //line 16
+        Seventeen, //line 17
+        Eighteen, //line 18
+        Ninteen, //line 19
+        Twenty, //line 20
         
         COUNT // length of the lines //Flag bit of traversal enumeration
     }

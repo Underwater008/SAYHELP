@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// see here https://lightbuzz.com/speech-recognition-unity/
@@ -52,10 +54,62 @@ public class TextSpeechRecognitionEngine : MonoBehaviour
         switch (word)
         {
             case "help":
-                WordInfoSystem.Single.SaidHelp();
+                WordInfoSystem.Single.SaidPass();
                 break;
+
+            case "play":
+                StartCoroutine(BySceneNameLoadScene(2f, "Scene 1"));
+                break;
+
+            case "I am Bella":
+                WordInfoSystem.Single.SaidPass();
+                break;
+
+            case "Get closer":
+                StartCoroutine(BySceneNameLoadScene(2f, "Scene 2"));
+                break;
+
+            case "hee-haw":
+                WordInfoSystem.Single.SaidPass();
+                break;
+
+            case "What a nice jackass":
+                StartCoroutine(BySceneNameLoadScene(2f, "Scene 3"));
+                break;
+
+            case "God be with you All":
+                WordInfoSystem.Single.SaidPass();
+                break;
+            
+            case "I am going to visit Lucy":
+                StartCoroutine(BySceneNameLoadScene(2f, "Scene 4"));
+                break;
+
+            case "Because I am Mister Honey":
+                WordInfoSystem.Single.SaidPass();
+                break;
+
+            case "Door":
+                //去门里；
+                break;
+
         }
     }
+
+    private IEnumerator BySceneNameLoadScene(float waitTime,string sceneName)
+    {
+        yield return new WaitForSeconds(waitTime);
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+              SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogError("SceneName is null!!!");
+        }
+      
+    }
+
 
     private void Update()
     {

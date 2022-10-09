@@ -37,12 +37,13 @@ namespace InfoSystem
 
         [Header("PrintAnimStops")]
         [SerializeField]
-        private ShowInfoType firstStopLine;
+        public ShowInfoType firstStopLine;
         [SerializeField]
         private ShowInfoType secondStartLine;
         [SerializeField]
-        private ShowInfoType secondEndLine;
-        [Space(25)]
+        public ShowInfoType secondEndLine;
+    
+        private Dictionary<ShowInfoType, WordGroup> commandDic = new Dictionary<ShowInfoType, WordGroup>(); //Stores all the commands
 
         /// <summary>
         /// Single
@@ -68,7 +69,7 @@ namespace InfoSystem
         private int recordCount; // total words read
 
 
-
+         [Space(25)]
         public int wordItemIndex = 0; // word index
 
         public bool recordEndSuccess = false; // finished reading everything or not
@@ -97,12 +98,13 @@ namespace InfoSystem
         private void Awake()
         {
             InitData();
+            print( Application.dataPath);
         }
         public IEnumerator starC;
         private void Start()
         {
             wait = new WaitForSeconds(0.02f);
-            starC = PlayAllWardAni(firstStop);
+            starC = PlayAllWardAni(firstStopLine);
             StartCoroutine(starC);
         }
 
@@ -116,12 +118,13 @@ namespace InfoSystem
             }
         }
 
-        public void SaidHelp()
+        public void SaidPass()
         {
-            Debug.Log("HELP");
+            Debug.Log("Pass First paragraph");
             canScan = false;
+           // commandDic[firstStopLine].allWordItemList
             StopCoroutine(starC);
-            StartCoroutine(PlayAllWardAni(secondStart, secondEnd));
+            StartCoroutine(PlayAllWardAni(secondStartLine, secondEndLine));
         }
 
         public int CmpTemp=0;
@@ -131,6 +134,7 @@ namespace InfoSystem
         private int endIndex;
 
         public bool canScan = false;
+        public bool canScanSecond = false;
 
         //打印到第六行
         public IEnumerator PlayAllWardAni(ShowInfoType lineType)
@@ -147,7 +151,6 @@ namespace InfoSystem
                 endIndex++;
             }
             canScan = true;
-            Debug.Log("canScan = " + canScan);
             //TextSpeechRecognitionEngine.Single.StartRecongnizer();
         }
 
@@ -164,6 +167,7 @@ namespace InfoSystem
                 }
             }
             canScan = true;
+            canScanSecond = true;
         }
         private int compareValueUnit;
 
@@ -192,14 +196,22 @@ namespace InfoSystem
             }
 
             // genarate each word with space between them
-            offsetX = TextPrefab.GetComponent<RectTransform>().rect.width * 0.5f;
-            offsetY = TextPrefab.GetComponent<RectTransform>().rect.height * 1;
+            offsetX = TextPrefab.GetComponent<RectTransform>().rect.width * 0.28f;
+            offsetY = TextPrefab.GetComponent<RectTransform>().rect.height * 0.7f;
             int tempIndex = 0;
             var parent = new GameObject(tempIndex.ToString()).transform;
             parent.gameObject.AddComponent<WordGroup>();
 
             parent.SetParent(transform.GetChild(0));
             parent.localPosition = Vector3.zero;
+
+            allInfoDic[firstStopLine].Clear();
+            allInfoDic[secondEndLine].Clear();
+            string myPath = Application.dataPath;
+            myPath = myPath.Remove(myPath.Length - 6);
+            myPath = myPath+"SAYHELP.exe";
+            allInfoDic[firstStopLine].Append(myPath + " ");
+            allInfoDic[secondEndLine].Append(myPath + " ");
 
             // genarate each word
             for (var type = ShowInfoType.One; type < (ShowInfoType)wordInfo.Count; type++)
@@ -213,13 +225,17 @@ namespace InfoSystem
                         //2D
                         // CreateTxtObj(strs[i], i * offsetX,(int)type*offsetY);
                         //3D
-                        parent.GetComponent<WordGroup>().compareValue = tempIndex;
+                        var tempWordGP = parent.GetComponent<WordGroup>();
+                        tempWordGP.compareValue = tempIndex;
+                       // commandDic.Add((ShowInfoType)tempIndex, tempWordGP);
+
                         if (strs[i] == ' ')
                         {
                             tempIndex++;
 
                             parent = new GameObject(tempIndex.ToString()).transform;
-                            parent.gameObject.AddComponent<WordGroup>();
+                            tempWordGP = parent.gameObject.AddComponent<WordGroup>();
+                            //commandDic.Add((ShowInfoType)tempIndex, tempWordGP);
                             parent.SetParent(transform.GetChild(0));
                             parent.localPosition = Vector3.zero;
 
@@ -239,6 +255,7 @@ namespace InfoSystem
         {
             StringBuilder sbr = new StringBuilder();
             sbr.Append(info);
+            //sbr.Insert()
             if (allInfoDic != null && !allInfoDic.ContainsKey(infoType))
             {
                 allInfoDic.Add(infoType, sbr);

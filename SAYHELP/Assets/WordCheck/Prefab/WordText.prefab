@@ -71,7 +71,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 85.12549, y: 90.73004, z: 1}
-  m_Center: {x: -0.215271, y: 0.2920227, z: 0}
+  m_Size: {x: 84.44769, y: 85.64694, z: 1}
+  m_Center: {x: -0.5541687, y: 1.4781036, z: 0}
 --- !u!114 &8664123177278665902
 MonoBehaviour:
   m_ObjectHideFlags: 0
