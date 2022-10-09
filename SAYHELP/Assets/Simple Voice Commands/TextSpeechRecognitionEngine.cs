@@ -49,6 +49,12 @@ public class TextSpeechRecognitionEngine : MonoBehaviour
     {
         word = args.text;
         results.text = "You said: <b>" + word + "</b>";
+        switch (word)
+        {
+            case "help":
+                WordInfoSystem.Single.SaidHelp();
+                break;
+        }
     }
 
     private void Update()

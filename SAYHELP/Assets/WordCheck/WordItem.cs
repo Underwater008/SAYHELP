@@ -77,7 +77,7 @@ namespace InfoSystem
             }
             else
             {
-                ChageColor(Color.red);
+                //ChageColor(Color.red);
                 WordInfoSystem.Single.debugtXT.color = Color.red;
                 WordInfoSystem.Single.debugtXT.text = "Please read everything carefully";
             }
@@ -89,7 +89,7 @@ namespace InfoSystem
             {
                 return;
             }
-            ChageColor(Color.white);
+            //ChageColor(Color.white);
         }
 
         private void OnMouseEnter()

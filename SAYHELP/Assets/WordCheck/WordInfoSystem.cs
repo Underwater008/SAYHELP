@@ -31,12 +31,18 @@ namespace InfoSystem
         private Vector2 oldVec;
         private float offsetX; // distence between words
         private float offsetY; // distence between lines
-
-        [SerializeField]
         private float offset3DX; // distence between words
-        [SerializeField]
         private float offset3DY; // distence between lines
+        [Space(25)]
 
+        [Header("PrintAnimStops")]
+        [SerializeField]
+        private ShowInfoType firstStopLine;
+        [SerializeField]
+        private ShowInfoType secondStartLine;
+        [SerializeField]
+        private ShowInfoType secondEndLine;
+        [Space(25)]
 
         /// <summary>
         /// Single
@@ -92,11 +98,11 @@ namespace InfoSystem
         {
             InitData();
         }
-        IEnumerator starC;
+        public IEnumerator starC;
         private void Start()
         {
-            wait = new WaitForSeconds(0.1f);
-            starC = PlayAllWardAni(ShowInfoType.Six);
+            wait = new WaitForSeconds(0.02f);
+            starC = PlayAllWardAni(firstStop);
             StartCoroutine(starC);
         }
 
@@ -105,9 +111,17 @@ namespace InfoSystem
             if (Input.GetKeyDown(KeyCode.H))
             {
                 Debug.Log("HELP");
-                StopCoroutine(starC);
-                //StartCoroutine(PlayAllWardAni(ShowInfoType.Seven, ShowInfoType.Fifteen));
+                // StopCoroutine(starC);
+                // StartCoroutine(PlayAllWardAni(ShowInfoType.Seven, ShowInfoType.Fifteen));
             }
+        }
+
+        public void SaidHelp()
+        {
+            Debug.Log("HELP");
+            canScan = false;
+            StopCoroutine(starC);
+            StartCoroutine(PlayAllWardAni(secondStart, secondEnd));
         }
 
         public int CmpTemp=0;
@@ -119,13 +133,13 @@ namespace InfoSystem
         public bool canScan = false;
 
         //打印到第六行
-        IEnumerator PlayAllWardAni(ShowInfoType lineType)
+        public IEnumerator PlayAllWardAni(ShowInfoType lineType)
         {
             foreach (var item in wordItemList)
             {
                 if (item.lineIndex > lineType)
                 {
-                    StopCoroutine(starC);
+                    continue;
                 }
 
                 yield return wait;
@@ -138,20 +152,19 @@ namespace InfoSystem
         }
 
         //从第七行打印到第十五行
-        // IEnumerator PlayAllWardAni(ShowInfoType first, ShowInfoType end)
-        // {
-
-        //     foreach (var item in wordItemList)
-        //     {
-        //         canScan = false;
-        //         if (first <= item.lineIndex && item.lineIndex <= end)
-        //         {
-        //             yield return wait;
-        //             item.PlayAni();
-        //         }
-        //     }
-        //     canScan = true;
-        // }
+         public IEnumerator PlayAllWardAni(ShowInfoType first, ShowInfoType end)
+        {
+            foreach (var item in wordItemList)
+            {
+                canScan = false;
+                if (first <= item.lineIndex && item.lineIndex <= end)
+                {
+                    yield return wait;
+                    item.PlayAni();
+                }
+            }
+            canScan = true;
+        }
         private int compareValueUnit;
 
 
