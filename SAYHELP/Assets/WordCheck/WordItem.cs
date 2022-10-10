@@ -128,7 +128,7 @@ namespace InfoSystem
         //show the letter
         public void PlayAni()
         {
-            txt.DOColor(Color.white, 0.01f);
+            txt.DOColor(Color.white, 0f);
             //txt.rectTransform.DOScale(Vector3.one, 0.3f);
         }
 

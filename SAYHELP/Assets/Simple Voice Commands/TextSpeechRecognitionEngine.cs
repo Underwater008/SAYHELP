@@ -89,10 +89,21 @@ public class TextSpeechRecognitionEngine : MonoBehaviour
                 WordInfoSystem.Single.SaidPass();
                 break;
 
-            case "Door":
-                //去门里；
+            case "Move closer":
+                    DoorControl.Single.ActivateDoor();
                 break;
 
+            case "Open the door":
+                    DoorControl.Single.OpenDoor();
+                break;
+
+            case "Get inside":
+                    DoorControl.Single.GoInsideDoor();
+                break;
+
+            case "Turn around":
+                    DoorControl.Single.TurnAround();
+                break;
         }
     }
 
@@ -114,13 +125,11 @@ public class TextSpeechRecognitionEngine : MonoBehaviour
     private void Update()
     {
 
-        /*switch (word)
-        {
-            case "help":
-
-                break;
-        }*/
-    }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
 
     private void OnApplicationQuit()
     {

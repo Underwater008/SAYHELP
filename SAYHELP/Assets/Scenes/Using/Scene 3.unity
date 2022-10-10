@@ -961,7 +961,8 @@ MonoBehaviour:
   - 
   - 'X:\<Game file location on the computer> '
   - 
-  - "The ass, however, did not say a thing. As the word \u201Cwhoh\u201D had not "
+  - "The ass, however, did not say a thing. As the word \u201Chee-haw \u201D had
+    not "
   - 'entered into the conversation he knew it was none of his business, and '
   - 'so he turned to the right on the new path and continued his journey. '
   - "\u201CWhere are you going to, stranger,\u201D said the first man. "
@@ -1033,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &887617314698608244
 CanvasRenderer:
   m_ObjectHideFlags: 0

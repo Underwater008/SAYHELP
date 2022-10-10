@@ -103,7 +103,7 @@ namespace InfoSystem
         public IEnumerator starC;
         private void Start()
         {
-            wait = new WaitForSeconds(0.02f);
+            wait = new WaitForSeconds(0.001f);
             starC = PlayAllWardAni(firstStopLine);
             StartCoroutine(starC);
         }
